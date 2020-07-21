@@ -1,5 +1,6 @@
 package com.bogdan.retrofitexample;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
-
+    private Context context;
     private List<Book> bookList;
-    private static OnItemClickListener mListener;
+    private static OnItemClickListener onItemClickListener;
 
 
     public interface OnItemClickListener {
         void onItemClick(Book book);
     }
 
-    public RecycleViewAdapter(OnItemClickListener listener) {
-        mListener = listener;
+    public RecycleViewAdapter(Context context, OnItemClickListener listener) {
+        this.context = context;
+        onItemClickListener = listener;
         bookList = new ArrayList<>();
 
     }
@@ -43,14 +45,15 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Book book = bookList.get(position);
-        holder.bookTitleTextView.setText(book.getTitle());
-        holder.bookAuthorTextView.setText((CharSequence) book.getAuthors());
-        holder.bookPublisherTextView.setText(book.getPublishedDate());
-        holder.bookAverageRating.setText(book.getAverageRating());
-        holder.bookPageCount.setText(book.getPageCount());
-        Glide.with(holder.bookThumbnailImageView.getContext()).load(book.getSmallThumbnail()).into(holder.bookThumbnailImageView);
-
-        holder.bind(bookList.get(position), mListener);
+        // holder.bind(bookList.get(position), onItemClickListener);
+        holder.textView_book_title.setText(book.getTitle());
+        holder.textView_book_authors.setText((CharSequence) book.getAuthors());
+        holder.textView_book_publishedDate.setText(book.getPublishedDate());
+        holder.textView_book_pageCount.setText(book.getPageCount());
+        holder.textView_book_rating.setText(book.getAverageRating());
+        Glide.with(context)
+                .load(book.getSmallThumbnail())
+                .into(holder.imageView_book_thumbnail);
     }
 
     @Override
@@ -58,23 +61,25 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return bookList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView bookThumbnailImageView;
-        TextView bookTitleTextView;
-        TextView bookAuthorTextView;
-        TextView bookPublisherTextView;
-        TextView bookPageCount;
-        TextView bookAverageRating;
+        private ImageView imageView_book_thumbnail;
+        private TextView textView_book_title;
+        private TextView textView_book_publishedDate;
+        private TextView textView_book_authors;
+        private TextView textView_book_pageCount;
+        private TextView textView_book_rating;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
-            bookThumbnailImageView = itemView.findViewById(R.id.cover_book_image_view);
-            bookTitleTextView = itemView.findViewById(R.id.book_title_text_view);
-            bookAuthorTextView = itemView.findViewById(R.id.book_author_text_view);
-            bookPublisherTextView = itemView.findViewById(R.id.book_date_text_view);
-            bookPageCount = itemView.findViewById(R.id.book_number_pages_text_view);
-            bookAverageRating = itemView.findViewById(R.id.book_rating_text_view);
+
+            imageView_book_thumbnail = itemView.findViewById(R.id.imageView_book_cover);
+            textView_book_title = itemView.findViewById(R.id.textView_book_title);
+            textView_book_publishedDate = itemView.findViewById(R.id.textView_book_publishedDate);
+            textView_book_authors = itemView.findViewById(R.id.textView_book_authors);
+            textView_book_pageCount = itemView.findViewById(R.id.textView_book_pageCount);
+            textView_book_rating = itemView.findViewById(R.id.textView_book_rating);
 
         }
 

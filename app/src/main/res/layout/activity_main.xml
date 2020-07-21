@@ -5,64 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/search_layout"
+        android:id="@+id/linearLayout_search_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/book_input_search_editText"
-            android:layout_width="200dp"
+            android:id="@+id/editText_input_book_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:autofillHints=""
-            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
             android:hint="Enter book title"
-            android:textColor="@android:color/black"
             android:textColorHint="@android:color/black" />
 
         <Button
             android:id="@+id/button_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
             android:text="Search"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/empty_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_book_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAppearance="?android:textAppearanceMedium" />
-
-    <ProgressBar
-        android:id="@+id/loading_progress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_layout"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_book_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:listitem="@layout/book_list" />
-    </LinearLayout>
-
+        android:layout_below="@+id/linearLayout_search_field"
+        android:layout_margin="5dp"
+        tools:listitem="@layout/book_list" />
 
 </RelativeLayout>

@@ -28,17 +28,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private final String langRestrict = "en";
-    private final int maxResults = 40;
+    private final int maxResults = 10;
     private final String printType = "books";
     private final String key = "AIzaSyBaDCRK59AGwh2uFuHLbfzE4kjeCbZjtT4";
     APIDeclaration service = RetrofitInstance.getRetrofitInstance().create(APIDeclaration.class);
     RecycleViewAdapter.OnItemClickListener clickListener = new RecycleViewAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(Book book) {
-            String url = book.getInfoLink();
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
+//            String url = book.getInfoLink();
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(url));
+//            startActivity(intent);
         }
     };
 
@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        inputTitleBookEditText = findViewById(R.id.book_input_search_editText);
+        inputTitleBookEditText = findViewById(R.id.editText_input_book_title);
         searchButton = findViewById(R.id.button_search);
-        recyclerView = findViewById(R.id.rv_book_list);
+        recyclerView = findViewById(R.id.recycleView_book_list);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recycleViewAdapter = new RecycleViewAdapter(clickListener);
+        recycleViewAdapter = new RecycleViewAdapter(MainActivity.this, clickListener);
         recyclerView.setAdapter(recycleViewAdapter);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     Log.e("TEST", String.valueOf(response.body().bookList.size()));
                                     recycleViewAdapter.setData(response.body().bookList);
+
+                                }
+
+                                if (inputTitleBookEditText.getText().toString().equals("")) {
+                                    recycleViewAdapter.clear();
                                 }
 
 
