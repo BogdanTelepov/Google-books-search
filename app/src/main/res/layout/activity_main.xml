@@ -37,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout_search_field"
-        android:layout_margin="5dp"
-        tools:listitem="@layout/book_list" />
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

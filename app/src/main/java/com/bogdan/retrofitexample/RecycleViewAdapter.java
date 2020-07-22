@@ -20,17 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
-    private Context context;
+
     private List<Book> bookList;
-    private static OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
 
     public interface OnItemClickListener {
         void onItemClick(Book book);
     }
 
-    public RecycleViewAdapter(Context context, OnItemClickListener listener) {
-        this.context = context;
+    public RecycleViewAdapter(OnItemClickListener listener) {
+
         onItemClickListener = listener;
         bookList = new ArrayList<>();
 
@@ -49,10 +49,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.textView_book_title.setText(book.getTitle());
         holder.textView_book_authors.setText((CharSequence) book.getAuthors());
         holder.textView_book_publishedDate.setText(book.getPublishedDate());
-        holder.textView_book_pageCount.setText(book.getPageCount());
-        holder.textView_book_rating.setText(book.getAverageRating());
-        Glide.with(context)
-                .load(book.getSmallThumbnail())
+        holder.textView_book_pageCount.setText(String.valueOf(book.getPageCount()));
+        holder.textView_book_rating.setText(String.valueOf(book.getAverageRating()));
+        Glide.with(holder.imageView_book_thumbnail.getContext())
+                .load(new Book.ImageLinks().getSmallThumbnail())
                 .into(holder.imageView_book_thumbnail);
     }
 

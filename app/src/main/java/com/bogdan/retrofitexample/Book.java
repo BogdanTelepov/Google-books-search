@@ -1,5 +1,6 @@
 package com.bogdan.retrofitexample;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -7,28 +8,41 @@ import java.util.List;
 public class Book {
 
     @SerializedName("title")
-    private String title;
+    @Expose
+    public String title;
     @SerializedName("authors")
-    private List<String> authors;
-    @SerializedName("publishedDate")
-    private String publishedDate;
-    @SerializedName("smallThumbnail")
-    private String smallThumbnail;
-    @SerializedName("pageCount")
-    private String pageCount;
-    @SerializedName("averageRating")
-    private String averageRating;
-    @SerializedName("infoLink")
-    private String infoLink;
+    @Expose
+    public List<String> authors = null;
 
-    public Book(String title, List<String> authors, String publishedDate, String smallThumbnail, String pageCount, String averageRating, String infoLink) {
+    @SerializedName("publishedDate")
+    @Expose
+    public String publishedDate;
+
+
+    @SerializedName("pageCount")
+    @Expose
+    public Integer pageCount;
+
+    @SerializedName("imageLinks")
+    @Expose
+    public ImageLinks imageLinks;
+
+
+    @SerializedName("infoLink")
+    @Expose
+    public String infoLink;
+
+    @SerializedName("averageRating")
+    @Expose
+    public Integer averageRating;
+
+    public Book(String title, List<String> authors, String publishedDate, Integer pageCount, ImageLinks imageLinks, Integer averageRating) {
         this.title = title;
         this.authors = authors;
         this.publishedDate = publishedDate;
-        this.smallThumbnail = smallThumbnail;
         this.pageCount = pageCount;
+        this.imageLinks = imageLinks;
         this.averageRating = averageRating;
-        this.infoLink = infoLink;
     }
 
     public String getTitle() {
@@ -43,20 +57,46 @@ public class Book {
         return publishedDate;
     }
 
-    public String getSmallThumbnail() {
-        return smallThumbnail;
-    }
-
-    public String getPageCount() {
+    public Integer getPageCount() {
         return pageCount;
     }
 
-    public String getAverageRating() {
-        return averageRating;
+    public ImageLinks getImageLinks() {
+        return imageLinks;
     }
 
     public String getInfoLink() {
         return infoLink;
     }
+
+    public Integer getAverageRating() {
+        return averageRating;
+    }
+
+    static class ImageLinks {
+
+        @SerializedName("smallThumbnail")
+        @Expose
+        public String smallThumbnail;
+        @SerializedName("thumbnail")
+        @Expose
+        public String thumbnail;
+
+        public String getSmallThumbnail() {
+            return smallThumbnail;
+        }
+
+        public String getThumbnail() {
+            return thumbnail;
+        }
+    }
 }
+
+
+
+
+
+
+
+
 

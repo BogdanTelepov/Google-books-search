@@ -42,19 +42,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
+    private void setupView() {
         inputTitleBookEditText = findViewById(R.id.editText_input_book_title);
         searchButton = findViewById(R.id.button_search);
         recyclerView = findViewById(R.id.recycleView_book_list);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recycleViewAdapter = new RecycleViewAdapter(MainActivity.this, clickListener);
+        recycleViewAdapter = new RecycleViewAdapter(clickListener);
         recyclerView.setAdapter(recycleViewAdapter);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+
+        setupView();
 
 
     }
