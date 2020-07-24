@@ -9,8 +9,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="400dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.460"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +21,10 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/imageView_book_cover"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_width="128dp"
+                android:layout_height="159dp"
                 android:background="@drawable/book_cover_shape" />
 
             <TextView
@@ -36,7 +36,8 @@
                 android:layout_toEndOf="@+id/imageView_book_cover"
                 android:text="@string/book_title"
                 android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView_book_authors"
@@ -82,6 +83,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/imageView_book_cover"
+                android:background="#00FFFF"
+                android:drawableLeft="@drawable/star_icon"
                 android:text="@string/book_rating"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
