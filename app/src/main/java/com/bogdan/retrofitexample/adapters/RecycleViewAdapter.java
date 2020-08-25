@@ -105,12 +105,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         public void bind(final Book book, final OnItemClickListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(book);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(book));
         }
     }
 

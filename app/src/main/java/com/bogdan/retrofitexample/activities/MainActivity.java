@@ -40,14 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private final String printType = "books";
     private final String key = "AIzaSyBaDCRK59AGwh2uFuHLbfzE4kjeCbZjtT4";
     APIDeclaration service = RetrofitInstance.getRetrofitInstance().create(APIDeclaration.class);
-    RecycleViewAdapter.OnItemClickListener clickListener = new RecycleViewAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(Book book) {
-            String url = book.volumeInfo.infoLink;
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
-        }
+    RecycleViewAdapter.OnItemClickListener clickListener = book -> {
+        String url = book.volumeInfo.infoLink;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     };
 
 
@@ -60,36 +57,31 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recycleViewAdapter = new RecycleViewAdapter(clickListener);
         recyclerView.setAdapter(recycleViewAdapter);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                service.getBooks(langRestrict, maxResults, printType, key, inputTitleBookEditText.getText().toString())
-                    .enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                            if (response.body() != null) {
-                                Log.e("TEST", String.valueOf(response.body().bookList.toString()));
-                                recycleViewAdapter.setData(response.body().bookList);
+        searchButton.setOnClickListener(v -> service.getBooks(langRestrict, maxResults, printType, key, inputTitleBookEditText.getText().toString())
+            .enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    if (response.body() != null) {
+                        Log.e("TEST", response.body().bookList.toString());
+                        recycleViewAdapter.setData(response.body().bookList);
 
-                            }
+                    }
 
-                            if (inputTitleBookEditText.getText().toString().equals("")) {
-                                recycleViewAdapter.clear();
-                            }
+                    if (inputTitleBookEditText.getText().toString().equals("")) {
+                        recycleViewAdapter.clear();
+                    }
 
 
-                        }
+                }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
 
-                            Log.e(MainActivity.class.getSimpleName(), "onFailure");
-                            t.getMessage();
-                        }
-                    });
-            }
-        });
+                    Log.e(MainActivity.class.getSimpleName(), "onFailure");
+                    t.getMessage();
+                }
+            }));
 
     }
 
